@@ -71,9 +71,7 @@ class ImageHasher:
         return ImageHasher._instance
 
     def __init__(self):
-        self._adjectives_resource = (
-            resources.files() / "resources" / "words" / "adjectives.txt"
-        )
+        self._adjectives_resource = resources.files() / "resources" / "words" / "adjectives.txt"
         self._nouns_resource = resources.files() / "resources" / "words" / "nouns.txt"
         self._adjectives = None
         self._nouns = None
@@ -118,9 +116,7 @@ class ImageRepository(ABC):
     def create_image_filename(image: Image.Image) -> str:
 
         # Get the hashwords and hexdigest for the image.
-        adjective, noun, hexdigest = (
-            ImageHasher.get_or_create().get_hashwords_and_hexdigest(image)
-        )
+        adjective, noun, hexdigest = ImageHasher.get_or_create().get_hashwords_and_hexdigest(image)
         return f"{adjective}_{noun}_{hexdigest}.jpeg"
 
     @staticmethod
@@ -138,9 +134,7 @@ class ImageRepository(ABC):
         }
 
     def construct_image_metadata(self, image: Image.Image) -> ImageMetadata:
-        adjective, noun, hexdigest = (
-            ImageHasher.get_or_create().get_hashwords_and_hexdigest(image)
-        )
+        adjective, noun, hexdigest = ImageHasher.get_or_create().get_hashwords_and_hexdigest(image)
         return ImageMetadata(
             hexdigest=hexdigest,
             filepath=self._root_directory / self.create_image_filename(image),
@@ -166,9 +160,7 @@ class ImageRepository(ABC):
     ) -> list[ImageMetadata]:
         raise NotImplementedError
 
-    def get_count_of_images_by_tag(
-        self, tags: Collection[str] | None = None
-    ) -> dict[str, int]:
+    def get_count_of_images_by_tag(self, tags: Collection[str] | None = None) -> dict[str, int]:
         raise NotImplementedError
 
 
@@ -250,9 +242,7 @@ class FileSystemImageRepository(ImageRepository):
         Retrieve the metadata for an image with the given hexdigest.
         """
         with sqlite3.connect(self.db_filepath) as conn:
-            result = conn.execute(
-                self.METADATA_GET_QUERY.format(hexdigest=hexdigest)
-            ).fetchone()
+            result = conn.execute(self.METADATA_GET_QUERY.format(hexdigest=hexdigest)).fetchone()
 
         if result is None:
             return None
@@ -339,9 +329,7 @@ class FileSystemImageRepository(ImageRepository):
         return [ImageMetadata.model_validate_json(result[0]) for result in results]
 
     @override
-    def get_count_of_images_by_tag(
-        self, tags: Collection[str] | None = None
-    ) -> dict[str, int]:
+    def get_count_of_images_by_tag(self, tags: Collection[str] | None = None) -> dict[str, int]:
         """
         Retrieve the count of images for each tag in the repository.
 

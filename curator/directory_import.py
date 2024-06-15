@@ -97,9 +97,7 @@ def main(
             if tag_with_parent_directory:
                 tags.append(image_filepath.parent.name)
 
-            task = ImportFileTask(
-                repository, image_filepath, search_terms, tags, begin_importing_event
-            )
+            task = ImportFileTask(repository, image_filepath, search_terms, tags, begin_importing_event)
             tasks_to_be_done.append(task)
 
     # Submit all the tasks to the thread pool, keeping track of how many are completed
