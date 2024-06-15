@@ -1,4 +1,4 @@
-name: Black Code Formatter Check
+name: Code Quality Checks
 
 on:
   pull_request:
@@ -27,3 +27,6 @@ jobs:
 
       - name: Run Black
         run: poetry run black --check curator tests
+
+      - name: Run Flake8
+        run: poetry run flake8 curator tests
