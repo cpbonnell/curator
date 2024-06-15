@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  black-check:
+  quality-check:
     runs-on: ubuntu-latest
 
     steps:

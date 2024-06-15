@@ -34,3 +34,9 @@ build-backend = "poetry.core.masonry.api"
 directory-import = "curator.directory_import:main"
 search = "curator.search_and_download:main"
 curator = "curator.cli:cli_group"
+
+[tool.black]
+line-length = 120
+
+[tool.flake8]
+max-line-length = 120
