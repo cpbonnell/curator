@@ -1,0 +1,20 @@
+[flake8]
+max-line-length = 120
+
+ignore =
+    # Whitespace before ':', which conflicts with Black
+    E203,
+
+    # Line break before binary operator, which conflicts with Black
+    W503
+
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .venv
+
+[isort]
+profile = black
+line_length = 120
