@@ -30,8 +30,8 @@ def test_construct_image_metadata():
     image = Image.new("RGB", (100, 100))
 
     with TemporaryDirectory() as tempdir:
-        expected_adjective, expected_noun, expected_hexdigest = (
-            ImageHasher.get_or_create().get_hashwords_and_hexdigest(image)
+        expected_adjective, expected_noun, expected_hexdigest = ImageHasher.get_or_create().get_hashwords_and_hexdigest(
+            image
         )
 
         image_repository = FileSystemImageRepository(root_directory=Path(tempdir))
@@ -97,10 +97,7 @@ def test_retrieve_image():
         assert retrieved_mandle_metadata.filepath == mandel_metadata.filepath
         assert "mandelbrot" in retrieved_mandle_metadata.tags
         assert "plain" not in retrieved_mandle_metadata.tags
-        assert (
-            "Something extremely Fractal"
-            in retrieved_mandle_metadata.search_query_strings
-        )
+        assert "Something extremely Fractal" in retrieved_mandle_metadata.search_query_strings
 
         # Check that we get None when we try to retrieve a non-existent image
         non_existent_metadata = image_repository.get_image_metadata("non_existent")

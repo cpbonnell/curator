@@ -24,9 +24,7 @@ def cli_group(ctx: click.Context, repository_location: Path):
     ctx.obj = {"repository_location": repository_location}
 
 
-@cli_group.command(
-    name="import-directory", help="Import images from a directory into the repository."
-)
+@cli_group.command(name="import-directory", help="Import images from a directory into the repository.")
 @click.argument(
     "directory",
     type=click.Path(exists=True),
@@ -56,9 +54,7 @@ def import_directory(
     main(directory, repository_location, number_of_workers, tag_with_parent_directory)
 
 
-def default_manifest_path(
-    ctx: click.Context, param: click.Option, value: Optional[Path]
-) -> Optional[Path]:
+def default_manifest_path(ctx: click.Context, param: click.Option, value: Optional[Path]) -> Optional[Path]:
     """
     If the manifest location is not provided, use the repository location to find the manifest.
     """
@@ -70,9 +66,7 @@ def default_manifest_path(
     return None
 
 
-@cli_group.command(
-    name="search", help="Search for images online and add them to the repository."
-)
+@cli_group.command(name="search", help="Search for images online and add them to the repository.")
 @click.option(
     "--shopping-list-location",
     "-s",
@@ -110,9 +104,7 @@ def search(
     main(repository_location, shopping_list_location, concurrent_downloads, log_level)
 
 
-@cli_group.command(
-    name="info", help="Display information about the components of the repository."
-)
+@cli_group.command(name="info", help="Display information about the components of the repository.")
 @click.option(
     "--shopping-list-location",
     "-s",
@@ -153,17 +145,13 @@ def init(ctx: click.Context, component: str):
     # Initialize repository directory if it does not exist
     if not repository_location.exists():
         repository_location.mkdir(parents=True)
-        console.print(
-            f"{GREEN_CHECK} The repository directory has been created at {repository_location}."
-        )
+        console.print(f"{GREEN_CHECK} The repository directory has been created at {repository_location}.")
 
     # Initialize a database file if needed (FileSystemRepository does this
     # as part of being instantiated)
     if component in ["repository", "all"]:
         fsir = FileSystemImageRepository(root_directory=repository_location)
-        console.print(
-            f"{GREEN_CHECK} A database of image metadata has been created at {fsir.db_filepath}."
-        )
+        console.print(f"{GREEN_CHECK} A database of image metadata has been created at {fsir.db_filepath}.")
 
     # Initialize a YAML filw with a sample shopping list
     if component in ["shopping-list", "all"]:
@@ -173,9 +161,7 @@ def init(ctx: click.Context, component: str):
         with open(shopping_list_location, "w") as file:
             file.write(yaml.dump(sample_shopping_list))
 
-        console.print(
-            f"{GREEN_CHECK} A sample shopping list has been created in the file {shopping_list_location}."
-        )
+        console.print(f"{GREEN_CHECK} A sample shopping list has been created in the file {shopping_list_location}.")
 
 
 @cli_group.command(name="inventory", help="Count of images with each tag.")
@@ -188,9 +174,7 @@ def inventory(ctx: click.Context):
     main(repository_location)
 
 
-@cli_group.command(
-    name="dataset", help="Create a new dataset from the images in the repository."
-)
+@cli_group.command(name="dataset", help="Create a new dataset from the images in the repository.")
 @click.option(
     "--output-location",
     "-o",
@@ -210,9 +194,7 @@ def dataset(ctx: click.Context, output_location: Path, classes: list[str]):
 
     # Raise an error if the output directory is the same as the repository directory
     if output_location == repository_location:
-        raise click.ClickException(
-            "The output location cannot be the same as the repository location."
-        )
+        raise click.ClickException("The output location cannot be the same as the repository location.")
 
     # Raise an error if there are fewer than 2 classes specified
     if len(classes) < 2:

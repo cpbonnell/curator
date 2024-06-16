@@ -39,9 +39,7 @@ def check_repository_directory_exists(repository_location: Path) -> bool:
         return False
 
 
-def check_repository_info(
-    repository_location: Path, shopping_list_location: Path
-) -> bool:
+def check_repository_info(repository_location: Path, shopping_list_location: Path) -> bool:
 
     repository_exists = check_repository_directory_exists(repository_location)
     database_exists = check_database_file_exists(repository_location)
@@ -59,9 +57,7 @@ def check_repository_info(
 class ImageSearchRequest(yaml.YAMLObject):
     yaml_tag = "!ImageSearchRequest"
 
-    def __init__(
-        self, search_term: str, desired_quantity: int = 100, tags: list[str] = []
-    ):
+    def __init__(self, search_term: str, desired_quantity: int = 100, tags: list[str] = []):
         self.search_term = search_term
         self.desired_quantity = desired_quantity
         self.tags = tags
@@ -98,8 +94,7 @@ class Settings(yaml.YAMLObject):
     ):
         if search_provider.lower() not in self.VALID_SEARCH_PROVIDERS:
             raise ValueError(
-                f"Invalid search provider '{search_provider}'. "
-                f"Valid options are {self.VALID_SEARCH_PROVIDERS}."
+                f"Invalid search provider '{search_provider}'. " f"Valid options are {self.VALID_SEARCH_PROVIDERS}."
             )
         else:
             self.search_provider = search_provider.lower()
@@ -109,10 +104,7 @@ class Settings(yaml.YAMLObject):
         self.rate_limit = rate_limit
 
     def __repr__(self):
-        return (
-            f"{self.__class__.__name__}"
-            f"(search_provider={self.search_provider}, rate_limit={self.rate_limit})"
-        )
+        return f"{self.__class__.__name__}" f"(search_provider={self.search_provider}, rate_limit={self.rate_limit})"
 
 
 class ShoppingList(yaml.YAMLObject):
@@ -127,15 +119,9 @@ class ShoppingList(yaml.YAMLObject):
 
 
 def create_sample_shopping_list() -> ShoppingList:
-    settings = Settings(
-        search_provider="google", rate_limit=100, api_key="123456", api_secret="abcdef"
-    )
-    search1 = ImageSearchRequest(
-        search_term="cat", desired_quantity=10, tags=["animal"]
-    )
-    search2 = ImageSearchRequest(
-        search_term="dog", desired_quantity=10, tags=["animal"]
-    )
+    settings = Settings(search_provider="google", rate_limit=100, api_key="123456", api_secret="abcdef")
+    search1 = ImageSearchRequest(search_term="cat", desired_quantity=10, tags=["animal"])
+    search2 = ImageSearchRequest(search_term="dog", desired_quantity=10, tags=["animal"])
 
     shopping_list = ShoppingList(settings=settings, searches=[search1, search2])
 
