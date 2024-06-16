@@ -1,6 +1,6 @@
 from rich.console import Console
 from rich.table import Table
-from curator.image_repository import FileSystemImageRepository, ImageRepository
+from curator.image_repository import FileSystemImageRepository
 
 
 def main(repository_location: str):

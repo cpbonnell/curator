@@ -38,7 +38,7 @@ from requests.exceptions import (
 from tqdm import tqdm
 
 from curator.image_repository import FileSystemImageRepository, ImageRepository
-from curator.repo_utilities import ImageSearchRequest, Settings, ShoppingList
+from curator.repo_utilities import ShoppingList
 
 
 @dataclass(frozen=True)
@@ -82,7 +82,9 @@ class ImageDownloadTask:
             response = requests.get(self.image_url, timeout=5)
             response.raise_for_status()
         except (ConnectTimeout, ConnectionError, HTTPError, ReadTimeout, SSLError) as e:
-            result = ImageDownloadResult(succeeded=False, reason=e.__class__.__name__, url=self.image_url)
+            result = ImageDownloadResult(
+                succeeded=False, reason=e.__class__.__name__, url=self.image_url
+            )
             if self.on_finished_callback:
                 self.on_finished_callback(result)
             return result
@@ -90,7 +92,9 @@ class ImageDownloadTask:
         try:
             image = Image.open(BytesIO(response.content))
         except UnidentifiedImageError as e:
-            result = ImageDownloadResult(succeeded=False, reason=e.__class__.__name__, url=self.image_url)
+            result = ImageDownloadResult(
+                succeeded=False, reason=e.__class__.__name__, url=self.image_url
+            )
             if self.on_finished_callback:
                 self.on_finished_callback(result)
             return result
@@ -117,7 +121,9 @@ def main(
     with shopping_list_location.open("r") as f:
         shopping_list: ShoppingList = yaml.load(f, Loader=yaml.Loader)
 
-    logging.info(f"Loaded shopping list containing {len(shopping_list.searches)} searches.")
+    logging.info(
+        f"Loaded shopping list containing {len(shopping_list.searches)} searches."
+    )
     logging.debug("===============================\n")
     logging.debug(shopping_list)
     logging.debug("===============================\n")
@@ -127,7 +133,9 @@ def main(
     service = build("customsearch", "v1", developerKey=shopping_list.settings.api_key)
 
     # Prep progress bar
-    estimated_total_images = sum(search.desired_quantity for search in shopping_list.searches)
+    estimated_total_images = sum(
+        search.desired_quantity for search in shopping_list.searches
+    )
     progress_bar = tqdm(total=estimated_total_images, desc="Downloading images")
 
     def callback_update_progress_bar(result: ImageDownloadResult):
@@ -189,6 +197,10 @@ def main(
 
         # Log any failed downloads
         if failed_results:
-            logging.warning(f"Failed to download {len(failed_results)} images. The URLs are:")
+            logging.warning(
+                f"Failed to download {len(failed_results)} images. The URLs are:"
+            )
             for result in failed_results:
-                logging.warning(f"Failed to download image from {result.url}. Reason: {result.reason}")
+                logging.warning(
+                    f"Failed to download image from {result.url}. Reason: {result.reason}"
+                )
