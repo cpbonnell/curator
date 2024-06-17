@@ -14,13 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Poetry
+        run: pipx install poetry
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
-
-      - name: Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Install dependencies
         run: poetry install
@@ -35,13 +35,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Poetry
+        run: pipx install poetry
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
-
-      - name: Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Install dependencies
         run: poetry install
@@ -56,13 +56,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Poetry
+        run: pipx install poetry
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
-
-      - name: Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Install dependencies
         run: poetry install
