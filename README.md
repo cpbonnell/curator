@@ -54,3 +54,6 @@ To create a sample file with the expected schema, you can use the `curator init`
 ```bash
 poetry run curator --repository-location ~/data/dogs-and-cats init shopping-list
 ```
+
+# License
+This project is licensed under the GNU GPL 3.0 License - see the [LICENSE.md](LICENSE.md) file for details.
