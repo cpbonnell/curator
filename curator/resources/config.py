@@ -26,3 +26,7 @@ class CuratorConfig:
     @property
     def settings_file(self) -> Path:
         return self._curator_root / "curator.db"
+
+    @property
+    def collections_file(self) -> Path:
+        return self._curator_root / "remote_collections.yaml"
