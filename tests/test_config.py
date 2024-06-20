@@ -1,9 +1,9 @@
 from pathlib import Path
-import pytest
 from tempfile import TemporaryDirectory
 
-from curator.config import CuratorConfig
+import pytest
 
+from curator.config import CuratorConfig
 
 config = CuratorConfig(Path.home() / ".curator")
 str_config = CuratorConfig("~/.curator")
