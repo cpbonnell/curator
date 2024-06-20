@@ -13,6 +13,10 @@ class CuratorConfig:
 
         if not curator_root:
             raise ValueError("A root_directory is required to instantiate a CuratorConfig object.")
+
+        if isinstance(curator_root, str):
+            curator_root = Path(curator_root)
+
         self._curator_root = curator_root.expanduser().resolve()
 
     @property
