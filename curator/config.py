@@ -57,3 +57,19 @@ class CuratorConfig:
         The root directory where files for local collections are stored.
         """
         return self._curator_root / "collections"
+
+    def assert_valid_installation(self):
+        """
+        Ensure that the root directory and all files exist, raise error if it doesn't.
+        """
+        if not self._curator_root.exists():
+            raise FileNotFoundError(f"Curator root directory {self._curator_root} does not exist.")
+
+        if not self.settings_file.exists():
+            raise FileNotFoundError(f"Curator settings file {self.settings_file} does not exist.")
+
+        if not self.remote_collections_file.exists():
+            raise FileNotFoundError(f"Curator remote collections file {self.remote_collections_file} does not exist.")
+
+        if not self.collections_root.exists():
+            raise FileNotFoundError(f"Curator collections root {self.collections_root} does not exist.")
