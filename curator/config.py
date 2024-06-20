@@ -62,14 +62,18 @@ class CuratorConfig:
         """
         Ensure that the root directory and all files exist, raise error if it doesn't.
         """
+        missing_files = list()
         if not self._curator_root.exists():
-            raise FileNotFoundError(f"Curator root directory {self._curator_root} does not exist.")
+            missing_files.append(self._curator_root)
 
         if not self.settings_file.exists():
-            raise FileNotFoundError(f"Curator settings file {self.settings_file} does not exist.")
+            missing_files.append(self.settings_file)
 
         if not self.remote_collections_file.exists():
-            raise FileNotFoundError(f"Curator remote collections file {self.remote_collections_file} does not exist.")
+            missing_files.append(self.remote_collections_file)
 
         if not self.collections_root.exists():
-            raise FileNotFoundError(f"Curator collections root {self.collections_root} does not exist.")
+            missing_files.append(self.collections_root)
+
+        if missing_files:
+            raise FileNotFoundError(f"The following files or directories are missing: {missing_files}")
