@@ -1,5 +1,6 @@
 from pathlib import Path
 import pytest
+from tempfile import TemporaryDirectory
 
 from curator.config import CuratorConfig
 
@@ -31,3 +32,34 @@ def test_collections_root():
 def test_curator_config_no_root_directory():
     with pytest.raises(ValueError):
         CuratorConfig(None)
+
+
+def test_assert_valid_installation():
+    """
+    The assert_valid_installation method raises FileNotFound errors on the
+    absence of a variety of files. To ensue that the method is working as
+    expected, this test creates an empty temp director, and then adds the
+    needed files one by one until the method no longer raises an error.
+
+    """
+
+    with TemporaryDirectory() as tmpdirname:
+        bad_config = CuratorConfig(tmpdirname)
+
+        # Empty root directory
+        with pytest.raises(FileNotFoundError):
+            bad_config.assert_valid_installation()
+
+        # Add settings file
+        (Path(tmpdirname) / "curator.db").touch()
+        with pytest.raises(FileNotFoundError):
+            bad_config.assert_valid_installation()
+
+        # Add remote collections file
+        (Path(tmpdirname) / "remote_collections.yaml").touch()
+        with pytest.raises(FileNotFoundError):
+            bad_config.assert_valid_installation()
+
+        # Add collections directory (function should now return without raising an error)
+        (Path(tmpdirname) / "collections").mkdir()
+        bad_config.assert_valid_installation()
