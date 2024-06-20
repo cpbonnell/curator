@@ -9,16 +9,16 @@ class CuratorConfig:
     Configuration for the Curator application.
     """
 
-    def __init__(self, root_directory: Pathlike):
+    def __init__(self, curator_root: Pathlike):
 
-        if not root_directory:
+        if not curator_root:
             raise ValueError("A root_directory is required to instantiate a CuratorConfig object.")
-        self._root_directory = root_directory.expanduser().resolve()
+        self._curator_root = curator_root.expanduser().resolve()
 
     @property
     def root_directory(self) -> Path:
-        return self._root_directory
+        return self._curator_root
 
     @property
     def settings_file(self) -> Path:
-        return self._root_directory / "curator.db"
+        return self._curator_root / "curator.db"
