@@ -45,7 +45,7 @@ class CuratorConfig:
         return self._curator_root / "curator.db"
 
     @property
-    def collections_file(self) -> Path:
+    def remote_collections_file(self) -> Path:
         """
         The file where information about remote collections is stored.
         """
