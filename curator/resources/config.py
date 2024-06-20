@@ -30,3 +30,7 @@ class CuratorConfig:
     @property
     def collections_file(self) -> Path:
         return self._curator_root / "remote_collections.yaml"
+
+    @property
+    def collections_root(self) -> Path:
+        return self._curator_root / "collections"
