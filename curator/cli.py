@@ -4,6 +4,8 @@ from rich.console import Console
 from typing import Optional
 from dotenv import load_dotenv
 
+from curator.config import CuratorConfig
+
 load_dotenv()
 
 
@@ -18,10 +20,10 @@ load_dotenv()
 )
 @click.pass_context
 def cli_group(ctx: click.Context, repository_location: Path):
-    # Note: The repository location can come from the environment
-    # variable CURATOR_REPOSITORY_LOCATION
 
-    ctx.obj = {"repository_location": repository_location}
+    config = CuratorConfig(curator_root=repository_location)
+
+    ctx.obj = {"repository_location": repository_location, "config": config}
 
 
 @cli_group.command(name="import-directory", help="Import images from a directory into the repository.")
