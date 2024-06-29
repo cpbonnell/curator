@@ -45,6 +45,13 @@ class CuratorConfig:
         return self._curator_root / "curator.db"
 
     @property
+    def settings_file_database_url(self) -> str:
+        """
+        The database URL for the settings file.
+        """
+        return f"sqlite:///{self.settings_file.as_uri()}"
+
+    @property
     def remote_collections_file(self) -> Path:
         """
         The file where information about remote collections is stored.
