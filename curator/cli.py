@@ -203,3 +203,12 @@ def dataset(ctx: click.Context, output_location: Path, classes: list[str]):
         raise click.ClickException("At least two classes must be specified.")
 
     main(repository_location, output_location, classes)
+
+
+@cli_group.command(name="install", help="Initialize all files needed for a distinct Curator installation.")
+@click.pass_context
+def install(ctx: click.Context):
+    from curator.sub_commands.install import main
+
+    config = ctx.obj["config"]
+    main(config)
