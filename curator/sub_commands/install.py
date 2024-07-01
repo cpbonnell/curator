@@ -1,5 +1,5 @@
-from curator.config import CuratorConfig
 from curator.alembic.tools import run_migrations
+from curator.config import CuratorConfig
 
 
 def main(config: CuratorConfig) -> None:
@@ -11,5 +11,5 @@ def main(config: CuratorConfig) -> None:
     config.root_directory.expanduser().mkdir(parents=True, exist_ok=True)
     config.collections_root.expanduser().mkdir(parents=True, exist_ok=True)
 
-    # Step 1: Create the database file
+    # Step 1: Run the Alembic migrations to create the database file
     run_migrations(config.settings_file_database_url)
