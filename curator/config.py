@@ -49,7 +49,7 @@ class CuratorConfig:
         """
         The database URL for the settings file.
         """
-        return f"sqlite:///{self.settings_file.as_uri()}"
+        return f"sqlite:///{self.settings_file.as_posix()}"
 
     @property
     def remote_collections_file(self) -> Path:

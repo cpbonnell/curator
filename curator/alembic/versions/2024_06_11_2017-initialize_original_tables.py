@@ -1,7 +1,7 @@
 """Initialize original tables.
 
 Revision ID: 609fbec99129
-Revises: 
+Revises:
 Create Date: 2024-06-11 20:17:05.800864
 
 """
@@ -9,7 +9,6 @@ Create Date: 2024-06-11 20:17:05.800864
 from typing import Sequence, Union
 
 from alembic import op
-import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
