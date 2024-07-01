@@ -1,7 +1,6 @@
 from curator.config import CuratorConfig
 from tempfile import TemporaryDirectory
 from sqlalchemy import create_engine, text
-import pdb
 
 
 def test_main():
