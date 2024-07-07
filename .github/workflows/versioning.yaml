@@ -1,0 +1,40 @@
+name: Versioning
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - *
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Poetry
+        run: pipx install poetry
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Determine version
+        id: get_version
+        run: |
+          echo "::set-output name=version::$(poetry version | cut -d ' ' -f 2)"
+
+      - name: Create tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version=$(echo ${{ steps.get_version.outputs.version }})
+          git tag -a "v$version" -m "Version $version"
+          git push origin "v$version"
