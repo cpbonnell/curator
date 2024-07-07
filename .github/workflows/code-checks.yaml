@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - dev
     types: [opened, synchronize]
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
         run: poetry install
 
       - name: Run Black
-        run: poetry run black --check curator tests
+        run: poetry run black --check data_curator tests
 
   check-flake8:
     runs-on: ubuntu-latest
@@ -49,7 +50,7 @@ jobs:
         run: poetry install
 
       - name: Run Flake8
-        run: poetry run flake8 curator tests
+        run: poetry run flake8 data_curator tests
 
   test-curator:
     runs-on: ubuntu-latest

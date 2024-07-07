@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "curator"
-version = "0.1.0"
+name = "data-curator"
+version = "0.2.0-alpha.1"
 description = ""
 authors = ["Christian Bonnell <christian.bonnell@gmail.com>"]
 readme = "README.md"

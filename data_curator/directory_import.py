@@ -17,7 +17,7 @@ from pathlib import Path
 from PIL import Image
 from tqdm import tqdm
 
-from curator.image_repository import (
+from data_curator.image_repository import (
     FileSystemImageRepository,
     ImageRepository,
 )

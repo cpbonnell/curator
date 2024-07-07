@@ -37,8 +37,8 @@ from requests.exceptions import (
 )
 from tqdm import tqdm
 
-from curator.image_repository import FileSystemImageRepository, ImageRepository
-from curator.repo_utilities import ShoppingList
+from data_curator.image_repository import FileSystemImageRepository, ImageRepository
+from data_curator.repo_utilities import ShoppingList
 
 
 @dataclass(frozen=True)

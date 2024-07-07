@@ -1,5 +1,5 @@
-from curator.alembic.tools import run_migrations
-from curator.config import CuratorConfig
+from data_curator.alembic.tools import run_migrations
+from data_curator.config import CuratorConfig
 
 
 def main(config: CuratorConfig) -> None:

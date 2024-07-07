@@ -1,10 +1,10 @@
-from curator.config import CuratorConfig
+from data_curator.config import CuratorConfig
 from tempfile import TemporaryDirectory
 from sqlalchemy import create_engine, text
 
 
 def test_main():
-    from curator.sub_commands.install import main
+    from data_curator.sub_commands.install import main
 
     with TemporaryDirectory() as temp_dir:
         config = CuratorConfig(curator_root=temp_dir)
