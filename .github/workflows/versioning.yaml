@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - dev
-      - *
+      - feature/*
 
 jobs:
   tag-version:
@@ -29,7 +29,12 @@ jobs:
       - name: Determine version
         id: get_version
         run: |
-          echo "::set-output name=version::$(poetry version | cut -d ' ' -f 2)"
+          echo "version=$(poetry version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "christian.bonnell@gmail.com"
+          git config --global user.name "Christian Bonnell (automated GitHub Actions)"
 
       - name: Create tag
         env:
