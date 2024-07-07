@@ -3,7 +3,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from curator.config import CuratorConfig
+from data_curator.config import CuratorConfig
 
 config = CuratorConfig(Path.home() / ".curator")
 str_config = CuratorConfig("~/.curator")

@@ -3,7 +3,7 @@ from tempfile import TemporaryDirectory
 
 from PIL import Image
 
-from curator.image_repository import (
+from data_curator.image_repository import (
     FileSystemImageRepository,
     ImageHasher,
     ImageRepository,

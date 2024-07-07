@@ -4,7 +4,7 @@ from rich.console import Console
 from typing import Optional
 from dotenv import load_dotenv
 
-from curator.config import CuratorConfig
+from data_curator.config import CuratorConfig
 
 load_dotenv()
 
@@ -50,7 +50,7 @@ def import_directory(
     number_of_workers: int,
     tag_with_parent_directory: bool,
 ):
-    from curator.directory_import import main
+    from data_curator.directory_import import main
 
     repository_location = ctx.obj["repository_location"]
     main(directory, repository_location, number_of_workers, tag_with_parent_directory)
@@ -97,7 +97,7 @@ def search(
     concurrent_downloads: int,
     log_level: str,
 ):
-    from curator.search import main
+    from data_curator.search import main
 
     repository_location = ctx.obj["repository_location"]
     if not shopping_list_location:
@@ -117,7 +117,7 @@ def search(
 )
 @click.pass_context
 def info(ctx: click.Context, shopping_list_location: Optional[Path]):
-    from curator.repo_utilities import check_repository_info
+    from data_curator.repo_utilities import check_repository_info
 
     # Idenfity the repository location and the shopping list location.
     repository_location = ctx.obj["repository_location"]
@@ -135,8 +135,8 @@ def info(ctx: click.Context, shopping_list_location: Optional[Path]):
 )
 @click.pass_context
 def init(ctx: click.Context, component: str):
-    from curator.repo_utilities import create_sample_shopping_list
-    from curator.image_repository import FileSystemImageRepository
+    from data_curator.repo_utilities import create_sample_shopping_list
+    from data_curator.image_repository import FileSystemImageRepository
     import yaml
 
     console = Console()
@@ -169,7 +169,7 @@ def init(ctx: click.Context, component: str):
 @cli_group.command(name="inventory", help="Count of images with each tag.")
 @click.pass_context
 def inventory(ctx: click.Context):
-    from curator.inventory import main
+    from data_curator.inventory import main
 
     repository_location = ctx.obj["repository_location"]
 
@@ -190,7 +190,7 @@ def inventory(ctx: click.Context):
 )
 @click.pass_context
 def dataset(ctx: click.Context, output_location: Path, classes: list[str]):
-    from curator.dataset import main
+    from data_curator.dataset import main
 
     repository_location = ctx.obj["repository_location"]
 
@@ -208,7 +208,7 @@ def dataset(ctx: click.Context, output_location: Path, classes: list[str]):
 @cli_group.command(name="install", help="Initialize all files needed for a distinct Curator installation.")
 @click.pass_context
 def install(ctx: click.Context):
-    from curator.sub_commands.install import main
+    from data_curator.sub_commands.install import main
 
     config = ctx.obj["config"]
     main(config)

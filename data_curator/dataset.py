@@ -2,7 +2,7 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from curator.image_repository import FileSystemImageRepository, ImageMetadata
+from data_curator.image_repository import FileSystemImageRepository, ImageMetadata
 
 
 def main(repository_location: Path, output_location: Path, classes: list[str]):

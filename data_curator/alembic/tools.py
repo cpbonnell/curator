@@ -5,7 +5,7 @@ from typing import Union
 from alembic import command
 from alembic.config import Config as AlembicConfig
 
-import curator
+import data_curator
 
 PathLike: Union = str | Path
 
@@ -21,7 +21,7 @@ def run_migrations(database_url: PathLike) -> None:
     # based on the current working directory. This is not ideal for a library like Curator, so we need to
     # explicitly specify the location of the Alembic configuration files. We also need to inject the URL
     # for the database file into the configuration, since it is determined as part of the command line invocation
-    package_resources_root = Path(str(resources.files(curator)))
+    package_resources_root = Path(str(resources.files(data_curator)))
     alembic_ini_path = package_resources_root / "alembic.ini"
     alembic_versions_path = package_resources_root / "alembic"
 
